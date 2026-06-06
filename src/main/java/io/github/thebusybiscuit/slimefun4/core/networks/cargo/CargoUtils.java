@@ -1,5 +1,18 @@
 package io.github.thebusybiscuit.slimefun4.core.networks.cargo;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+import com.xzavier0722.mc.plugin.slimefuncomplib.event.cargo.CargoInsertEvent;
+import com.xzavier0722.mc.plugin.slimefuncomplib.event.cargo.CargoWithdrawEvent;
+import io.github.bakedlibs.dough.inventory.InvUtils;
+import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.ComparisonResult;
+import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.InventoryContext;
+import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.MatchContext;
+import io.github.thebusybiscuit.slimefun4.core.debug.Debug;
+import io.github.thebusybiscuit.slimefun4.core.debug.TestCase;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
+import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -130,7 +143,7 @@ final class CargoUtils {
                     return withdrawFromVanillaInventory(network, node, template, inventory);
                 }
 
-                BlockState state = PaperLib.getBlockState(target, false).getState();
+                BlockState state = target.getState(false);
 
                 if (state instanceof InventoryHolder inventoryHolder) {
                     inventory = inventoryHolder.getInventory();
@@ -231,7 +244,7 @@ final class CargoUtils {
             Inventory inventory = inventories.get(loc);
 
             if (inventory == null) {
-                BlockState state = PaperLib.getBlockState(target, false).getState();
+                BlockState state = target.getState(false);
                 if (!(state instanceof InventoryHolder holder)) {
                     return null;
                 }
@@ -284,7 +297,7 @@ final class CargoUtils {
                 Inventory inventory = inventories.get(loc);
 
                 if (inventory == null) {
-                    BlockState state = PaperLib.getBlockState(target, false).getState();
+                    BlockState state = target.getState(false);
                     if (!(state instanceof InventoryHolder holder)) {
                         return stack;
                     }
@@ -310,12 +323,34 @@ final class CargoUtils {
         for (int slot : menu.getPreset().getSlotsAccessedByItemTransport(menu, ItemTransportFlow.INSERT, wrapper)) {
             ItemStack itemInSlot = menu.getItemInSlot(slot);
 
-            if (itemInSlot == null) {
+            if (itemInSlot == null || itemInSlot.getType().isAir()) {
+                if (!Slimefun.getItemStackService().canInsertIntoEmptySlot(stack, InventoryContext.CARGO_INSERT)) {
+                    continue;
+                }
+
+                int maxStackSize = Math.min(
+                        Slimefun.getItemStackService()
+                                .getMaxStackSize(stack, InventoryContext.CARGO_INSERT, stack.getMaxStackSize()),
+                        menu.toInventory().getMaxStackSize());
+                if (stack.getAmount() > maxStackSize) {
+                    ItemStack inserted = stack.clone();
+                    inserted.setAmount(maxStackSize);
+                    menu.replaceExistingItem(slot, inserted);
+                    stack.setAmount(stack.getAmount() - maxStackSize);
+                    return stack;
+                }
+
                 menu.replaceExistingItem(slot, stack);
                 return null;
             }
 
-            int maxStackSize = itemInSlot.getType().getMaxStackSize();
+            int maxStackSize = Math.min(
+                    Slimefun.getItemStackService()
+                            .getMaxStackSize(
+                                    itemInSlot,
+                                    InventoryContext.CARGO_INSERT,
+                                    itemInSlot.getType().getMaxStackSize()),
+                    menu.toInventory().getMaxStackSize());
             int currentAmount = itemInSlot.getAmount();
 
             if (!smartFill && currentAmount == maxStackSize) {
@@ -323,7 +358,14 @@ final class CargoUtils {
                 continue;
             }
 
-            if (SlimefunUtils.isItemSimilar(itemInSlot, wrapper, true, false)) {
+            ComparisonResult comparison =
+                    Slimefun.getItemStackService().matches(itemInSlot, stack, MatchContext.STACK_MERGE);
+            if (comparison == ComparisonResult.NO_MATCH) {
+                continue;
+            }
+
+            if ((comparison == ComparisonResult.MATCH)
+                    || SlimefunUtils.isItemSimilarWithoutVirtualItems(itemInSlot, wrapper, true, false)) {
                 if (currentAmount < maxStackSize) {
                     int amount = currentAmount + stack.getAmount();
 
@@ -364,7 +406,23 @@ final class CargoUtils {
             // Changes to this ItemStack are synchronized with the Item in the Inventory
             ItemStack itemInSlot = contents[slot];
 
-            if (itemInSlot == null) {
+            if (itemInSlot == null || itemInSlot.getType().isAir()) {
+                if (!Slimefun.getItemStackService().canInsertIntoEmptySlot(stack, InventoryContext.CARGO_INSERT)) {
+                    continue;
+                }
+
+                int maxStackSize = Math.min(
+                        Slimefun.getItemStackService()
+                                .getMaxStackSize(stack, InventoryContext.CARGO_INSERT, stack.getMaxStackSize()),
+                        inv.getMaxStackSize());
+                if (stack.getAmount() > maxStackSize) {
+                    ItemStack inserted = stack.clone();
+                    inserted.setAmount(maxStackSize);
+                    inv.setItem(slot, inserted);
+                    stack.setAmount(stack.getAmount() - maxStackSize);
+                    return stack;
+                }
+
                 inv.setItem(slot, stack);
                 return null;
             }
@@ -375,15 +433,29 @@ final class CargoUtils {
 
             if (SlimefunUtils.isItemSimilar(itemInSlot, wrapper, true, false)) {
                 int currentAmount = itemInSlot.getAmount();
-                int maxStackSize = itemInSlot.getType().getMaxStackSize();
+                int maxStackSize = Math.min(
+                        Slimefun.getItemStackService()
+                                .getMaxStackSize(
+                                        itemInSlot,
+                                        InventoryContext.CARGO_INSERT,
+                                        itemInSlot.getType().getMaxStackSize()),
+                        inv.getMaxStackSize());
 
                 if (!smartFill && currentAmount == maxStackSize) {
                     // Skip full stacks - Performance optimization for non-smartfill nodes
                     continue;
                 }
 
-                if (currentAmount < maxStackSize) {
-                    int amount = currentAmount + stack.getAmount();
+                ComparisonResult comparison =
+                        Slimefun.getItemStackService().matches(itemInSlot, stack, MatchContext.STACK_MERGE);
+                if (comparison == ComparisonResult.NO_MATCH) {
+                    continue;
+                }
+
+                if ((comparison == ComparisonResult.MATCH)
+                        || SlimefunUtils.isItemSimilarWithoutVirtualItems(itemInSlot, wrapper, true, false)) {
+                    if (currentAmount < maxStackSize) {
+                        int amount = currentAmount + stack.getAmount();
 
                     if (amount > maxStackSize) {
                         stack.setAmount(amount - maxStackSize);

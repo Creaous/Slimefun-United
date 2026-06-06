@@ -1,5 +1,14 @@
 package io.github.thebusybiscuit.slimefun4.implementation.items.blocks;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.implementation.handlers.VanillaInventoryDropHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.items.multiblocks.Smeltery;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -116,8 +125,7 @@ public class IgnitionChamber extends SlimefunItem {
 
             if (block.getType() == Material.DROPPER
                     && StorageCacheUtils.getSlimefunItem(block.getLocation()) instanceof IgnitionChamber) {
-                BlockState state =
-                        PaperLib.getBlockState(b.getRelative(face), false).getState();
+                BlockState state = b.getRelative(face).getState(false);
 
                 if (state instanceof Dropper dropper) {
                     return dropper.getInventory();

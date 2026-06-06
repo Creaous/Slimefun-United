@@ -4,10 +4,7 @@ import city.norain.slimefun4.SlimefunExtended;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Registry;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.WallSign;
@@ -24,7 +21,7 @@ public class CompatibilityUtil {
      * @return the material used when placing this block
      */
     public Material getPlacementMaterial(BlockData blockData) {
-        if (SlimefunExtended.getMinecraftVersion().isAtLeast(1, 19, 4)) {
+        if (SlimefunExtended.isAtLeast(1, 19, 4)) {
             return blockData.getPlacementMaterial();
         } else {
             switch (blockData.getMaterial()) {
@@ -66,8 +63,7 @@ public class CompatibilityUtil {
      * @return {@code true} if the connection for that player is active
      */
     public boolean isConnected(OfflinePlayer player) {
-        if (SlimefunExtended.getMinecraftVersion().isAtLeast(1, 20)
-                && Slimefun.instance().getServer().getOnlineMode()) {
+        if (SlimefunExtended.isAtLeast(1, 20) && Slimefun.instance().getServer().getOnlineMode()) {
             return player.isConnected();
         } else {
             return player.isOnline();
