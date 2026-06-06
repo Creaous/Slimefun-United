@@ -30,10 +30,10 @@ public class ColoredFireworkStar extends CustomItemStack {
             }
 
             ((FireworkEffectMeta) im)
-                .setEffect(FireworkEffect.builder()
-                    .with(Type.BURST)
-                    .withColor(color)
-                    .build());
+                    .setEffect(FireworkEffect.builder()
+                            .with(Type.BURST)
+                            .withColor(color)
+                            .build());
 
             if (lore.length > 0) {
                 List<String> lines = new ArrayList<>();
