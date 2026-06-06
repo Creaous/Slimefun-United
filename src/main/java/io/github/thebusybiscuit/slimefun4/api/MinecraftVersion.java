@@ -3,12 +3,8 @@ package io.github.thebusybiscuit.slimefun4.api;
 import city.norain.slimefun4.SlimefunExtended;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import javax.annotation.Nonnull;
-
 import org.apache.commons.lang.Validate;
 import org.bukkit.Server;
-
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.papermc.lib.PaperLib;
 
 /**
  * TODO: Clean up this method
@@ -59,7 +55,7 @@ public enum MinecraftVersion {
      */
     MINECRAFT_1_20_5(1, 20, 5, "1.20.5+"),
 
-     /**
+    /**
      * This constant represents Minecraft (Java Edition) Version 1.21
      * ("Tricky Trials")
      */
@@ -109,7 +105,7 @@ public enum MinecraftVersion {
         this.virtual = false;
     }
 
-        /**
+    /**
      * This constructs a new {@link MinecraftVersion} with the given name.
      * This constructor forces the {@link MinecraftVersion} to be real.
      * It must be a real version of Minecraft.
@@ -207,8 +203,8 @@ public enum MinecraftVersion {
      */
     public boolean isMinecraftVersion(int minecraftVersion, int patchVersion) {
         return !isVirtual()
-            && this.majorVersion == minecraftVersion
-            && (this.minorVersion == -1 || this.minorVersion <= patchVersion)
+                && this.majorVersion == minecraftVersion
+                && (this.minorVersion == -1 || this.minorVersion <= patchVersion)
                 && (this.maxMinorVersion == -1 || patchVersion <= this.maxMinorVersion);
     }
 

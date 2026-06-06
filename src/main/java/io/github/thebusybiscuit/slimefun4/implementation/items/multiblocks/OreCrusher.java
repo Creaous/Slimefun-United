@@ -15,10 +15,8 @@ import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -29,19 +27,6 @@ import org.bukkit.block.Dispenser;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
-import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import io.papermc.lib.PaperLib;
 
 /**
  * The {@link OreCrusher} is a {@link MultiBlockMachine} which allows you to double ores
@@ -144,13 +129,12 @@ public class OreCrusher extends MultiBlockMachine {
 
         // @formatter:off
         displayRecipes.addAll(Arrays.asList(
-            new ItemStack(Material.COAL_ORE), doubleOres.getCoal(),
-            new ItemStack(Material.LAPIS_ORE), doubleOres.getLapisLazuli(),
-            new ItemStack(Material.REDSTONE_ORE), doubleOres.getRedstone(),
-            new ItemStack(Material.DIAMOND_ORE), doubleOres.getDiamond(),
-            new ItemStack(Material.EMERALD_ORE), doubleOres.getEmerald(),
-            new ItemStack(Material.NETHER_QUARTZ_ORE), doubleOres.getNetherQuartz()
-        ));
+                new ItemStack(Material.COAL_ORE), doubleOres.getCoal(),
+                new ItemStack(Material.LAPIS_ORE), doubleOres.getLapisLazuli(),
+                new ItemStack(Material.REDSTONE_ORE), doubleOres.getRedstone(),
+                new ItemStack(Material.DIAMOND_ORE), doubleOres.getDiamond(),
+                new ItemStack(Material.EMERALD_ORE), doubleOres.getEmerald(),
+                new ItemStack(Material.NETHER_QUARTZ_ORE), doubleOres.getNetherQuartz()));
         // @formatter:on
 
         // Gold ore variants (1.16+)
@@ -176,12 +160,11 @@ public class OreCrusher extends MultiBlockMachine {
         if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
             // @formatter:off
             displayRecipes.addAll(Arrays.asList(
-                new ItemStack(Material.DEEPSLATE_COAL_ORE), doubleOres.getCoal(),
-                new ItemStack(Material.DEEPSLATE_LAPIS_ORE), doubleOres.getLapisLazuli(),
-                new ItemStack(Material.DEEPSLATE_REDSTONE_ORE), doubleOres.getRedstone(),
-                new ItemStack(Material.DEEPSLATE_DIAMOND_ORE), doubleOres.getDiamond(),
-                new ItemStack(Material.DEEPSLATE_EMERALD_ORE), doubleOres.getEmerald()
-            ));
+                    new ItemStack(Material.DEEPSLATE_COAL_ORE), doubleOres.getCoal(),
+                    new ItemStack(Material.DEEPSLATE_LAPIS_ORE), doubleOres.getLapisLazuli(),
+                    new ItemStack(Material.DEEPSLATE_REDSTONE_ORE), doubleOres.getRedstone(),
+                    new ItemStack(Material.DEEPSLATE_DIAMOND_ORE), doubleOres.getDiamond(),
+                    new ItemStack(Material.DEEPSLATE_EMERALD_ORE), doubleOres.getEmerald()));
             // @formatter:on
 
             // More deepslate ores and copper ore

@@ -1,34 +1,6 @@
 package io.github.thebusybiscuit.slimefun4.utils;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import org.apache.commons.lang.Validate;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
-
 import city.norain.slimefun4.SlimefunExtended;
-
 import io.github.bakedlibs.dough.common.CommonPatterns;
 import io.github.bakedlibs.dough.items.ItemMetaSnapshot;
 import io.github.bakedlibs.dough.skins.PlayerHead;
@@ -51,6 +23,30 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.altar.AncientPedestal;
 import io.github.thebusybiscuit.slimefun4.implementation.tasks.CapacitorTextureUpdateTask;
 import io.github.thebusybiscuit.slimefun4.utils.itemstack.ItemStackWrapper;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import org.apache.commons.lang.Validate;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 /**
  * This utility class holds method that are directly linked to Slimefun.
@@ -280,32 +276,31 @@ public final class SlimefunUtils {
         return false;
     }
 
-
     public static boolean isItemSimilar(@Nullable ItemStack item, @Nullable ItemStack sfitem, boolean checkLore) {
         return isItemSimilar(item, sfitem, checkLore, true, true, true);
     }
 
     public static boolean isItemSimilar(
-        @Nullable ItemStack item, @Nullable ItemStack sfitem, boolean checkLore, boolean checkAmount) {
+            @Nullable ItemStack item, @Nullable ItemStack sfitem, boolean checkLore, boolean checkAmount) {
         return isItemSimilar(item, sfitem, checkLore, checkAmount, true, true);
     }
 
     public static boolean isItemSimilar(
-        @Nullable ItemStack item,
-        @Nullable ItemStack sfitem,
-        boolean checkLore,
-        boolean checkAmount,
-        boolean checkDistinctiveItem) {
+            @Nullable ItemStack item,
+            @Nullable ItemStack sfitem,
+            boolean checkLore,
+            boolean checkAmount,
+            boolean checkDistinctiveItem) {
         return isItemSimilar(item, sfitem, checkLore, checkAmount, checkDistinctiveItem, true);
     }
 
     public static boolean isItemSimilar(
-        @Nullable ItemStack item,
-        @Nullable ItemStack sfitem,
-        boolean checkLore,
-        boolean checkAmount,
-        boolean checkDistinctiveItem,
-        boolean checkCustomModelData) {
+            @Nullable ItemStack item,
+            @Nullable ItemStack sfitem,
+            boolean checkLore,
+            boolean checkAmount,
+            boolean checkDistinctiveItem,
+            boolean checkCustomModelData) {
         ComparisonResult comparison = Slimefun.getItemStackService().matches(item, sfitem, MatchContext.GENERIC);
         if (comparison == ComparisonResult.MATCH) {
             return true;
@@ -316,30 +311,30 @@ public final class SlimefunUtils {
         }
 
         return isItemSimilarWithoutVirtualItems(
-            item, sfitem, checkLore, checkAmount, checkDistinctiveItem, checkCustomModelData);
+                item, sfitem, checkLore, checkAmount, checkDistinctiveItem, checkCustomModelData);
     }
 
     public static boolean isItemSimilarWithoutVirtualItems(
-        @Nullable ItemStack item, @Nullable ItemStack sfitem, boolean checkLore, boolean checkAmount) {
+            @Nullable ItemStack item, @Nullable ItemStack sfitem, boolean checkLore, boolean checkAmount) {
         return isItemSimilarWithoutVirtualItems(item, sfitem, checkLore, checkAmount, true, true);
     }
 
     public static boolean isItemSimilarWithoutVirtualItems(
-        @Nullable ItemStack item,
-        @Nullable ItemStack sfitem,
-        boolean checkLore,
-        boolean checkAmount,
-        boolean checkDistinctiveItem,
-        boolean checkCustomModelData) {
+            @Nullable ItemStack item,
+            @Nullable ItemStack sfitem,
+            boolean checkLore,
+            boolean checkAmount,
+            boolean checkDistinctiveItem,
+            boolean checkCustomModelData) {
         if (item == null) {
             return sfitem == null;
         } else if (sfitem == null
-            || item.getType() != sfitem.getType()
-            || checkAmount && item.getAmount() < sfitem.getAmount()) {
+                || item.getType() != sfitem.getType()
+                || checkAmount && item.getAmount() < sfitem.getAmount()) {
             return false;
         } else if (checkDistinctiveItem
-            && sfitem instanceof SlimefunItemStack stackOne
-            && item instanceof SlimefunItemStack stackTwo) {
+                && sfitem instanceof SlimefunItemStack stackOne
+                && item instanceof SlimefunItemStack stackTwo) {
             if (stackOne.getItemId().equals(stackTwo.getItemId())) {
                 /*
                  * PR #3417
@@ -387,10 +382,10 @@ public final class SlimefunUtils {
                 if (sfitem.hasItemMeta()) {
                     ItemMeta possibleSfItemMeta = sfitem.getItemMeta();
                     String id =
-                        Slimefun.getItemDataService().getItemData(itemMeta).orElse(null);
+                            Slimefun.getItemDataService().getItemData(itemMeta).orElse(null);
                     String possibleItemId = Slimefun.getItemDataService()
-                        .getItemData(possibleSfItemMeta)
-                        .orElse(null);
+                            .getItemData(possibleSfItemMeta)
+                            .orElse(null);
                     // Prioritize SlimefunItem id comparison over ItemMeta comparison
                     if (id != null && possibleItemId != null) {
                         /*
