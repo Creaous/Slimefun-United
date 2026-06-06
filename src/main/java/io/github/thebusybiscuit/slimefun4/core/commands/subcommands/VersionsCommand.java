@@ -21,8 +21,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 
-import io.github.bakedlibs.dough.versions.DoughVersion;
-
 import city.norain.slimefun4.utils.EnvUtil;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.commands.SlimefunCommand;
@@ -94,7 +92,6 @@ class VersionsCommand extends SubCommand {
                 // @formatter:on
             }
 
-            addDoughVersion(builder);
             addJavaVersion(builder);
 
             if (Slimefun.getConfigManager().isBypassEnvironmentCheck()) {
@@ -112,17 +109,6 @@ class VersionsCommand extends SubCommand {
         } else {
             Slimefun.getLocalization().sendMessage(sender, "messages.no-permission", true);
         }
-    }
-
-    private void addDoughVersion(@Nonnull net.kyori.adventure.text.TextComponent.Builder builder) {
-        String doughVersion = DoughVersion.getVersion();
-        builder.append(Component.text("dough ", NamedTextColor.GREEN))
-            .append(Component.text(
-                doughVersion
-                    + (!doughVersion.toLowerCase(Locale.ROOT).contains("snapshot")
-                    ? ""
-                    : " @" + DoughVersion.getBranch()) + " #" + DoughVersion.getCommit() + '\n',
-                Style.style(NamedTextColor.DARK_GREEN)));
     }
 
     private void addJavaVersion(@Nonnull net.kyori.adventure.text.TextComponent.Builder builder) {

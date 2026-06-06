@@ -27,7 +27,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -55,7 +54,7 @@ public class GrindStone extends MultiBlockMachine {
                     new ItemStack(Material.OAK_FENCE),
                     null,
                     null,
-                    ItemStackFactory.create(Material.DISPENSER, "Dispenser (Facing Up)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     null
                 },
                 BlockFace.SELF);

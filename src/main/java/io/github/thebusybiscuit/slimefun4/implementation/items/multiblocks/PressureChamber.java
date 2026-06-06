@@ -26,7 +26,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -46,7 +45,7 @@ public class PressureChamber extends MultiBlockMachine {
                 item,
                 new ItemStack[] {
                     new ItemStack(Material.SMOOTH_STONE_SLAB),
-                    ItemStackFactory.create(Material.DISPENSER, "Dispenser (Facing Down)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Down)"),
                     new ItemStack(Material.SMOOTH_STONE_SLAB),
                     new ItemStack(Material.PISTON),
                     new ItemStack(Material.GLASS),

@@ -1,7 +1,7 @@
 package io.github.thebusybiscuit.slimefun4.api.gps;
 
 import io.github.bakedlibs.dough.common.ChatColors;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -91,7 +91,7 @@ public final class TeleportationManager {
 
                 menu.addItem(
                         4,
-                        ItemStackFactory.create(
+                        new CustomItemStack(
                                 HeadTexture.GLOBE_OVERWORLD.getAsItemStack(),
                                 ChatColor.YELLOW
                                         + Slimefun.getLocalization().getMessage(p, "machines.TELEPORTER.gui.title")));
@@ -127,7 +127,7 @@ public final class TeleportationManager {
 
                     menu.addItem(
                             slot,
-                            ItemStackFactory.create(
+                            new CustomItemStack(
                                     waypoint.getIcon(), waypoint.getName().replace("player:death ", ""), lore));
                     menu.addMenuClickHandler(slot, (pl, s, item, action) -> {
                         pl.closeInventory();

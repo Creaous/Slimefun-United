@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -46,7 +47,6 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -398,7 +398,7 @@ public class TalismanListener implements Listener {
                         e.getBlock()
                                 .getWorld()
                                 .dropItemNaturally(
-                                        e.getBlock().getLocation(), ItemStackFactory.create(droppedItem, amount));
+                                        e.getBlock().getLocation(), new CustomItemStack(droppedItem, amount));
                         doubledDrops = true;
                     }
                 }

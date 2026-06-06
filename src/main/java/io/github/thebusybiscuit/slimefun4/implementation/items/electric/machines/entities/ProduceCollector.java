@@ -35,7 +35,6 @@ import org.bukkit.entity.MushroomCow;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.bakedlibs.dough.inventory.InvUtils;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
@@ -129,15 +128,15 @@ public class ProduceCollector extends AContainer implements RecipeDisplayItem {
     public @Nonnull List<ItemStack> getDisplayRecipes() {
         List<ItemStack> displayRecipes = new ArrayList<>();
 
-        displayRecipes.add(ItemStackFactory.create(Material.BUCKET, null, "&fRequires &bCow &fnearby"));
+        displayRecipes.add(new CustomItemStack(Material.BUCKET, null, "&fRequires &bCow &fnearby"));
         displayRecipes.add(new ItemStack(Material.MILK_BUCKET));
 
         if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
-            displayRecipes.add(ItemStackFactory.create(Material.BUCKET, null, "&fRequires &bGoat &fnearby"));
+            displayRecipes.add(new CustomItemStack(Material.BUCKET, null, "&fRequires &bGoat &fnearby"));
             displayRecipes.add(new ItemStack(Material.MILK_BUCKET));
         }
 
-        displayRecipes.add(ItemStackFactory.create(Material.BOWL, null, "&fRequires &bMooshroom &fnearby"));
+        displayRecipes.add(new CustomItemStack(Material.BOWL, null, "&fRequires &bMooshroom &fnearby"));
         displayRecipes.add(new ItemStack(Material.MUSHROOM_STEW));
 
         return displayRecipes;

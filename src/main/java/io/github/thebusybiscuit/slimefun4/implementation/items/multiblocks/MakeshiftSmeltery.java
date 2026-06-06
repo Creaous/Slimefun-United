@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 
@@ -38,7 +38,7 @@ public class MakeshiftSmeltery extends AbstractSmeltery {
                     new ItemStack(Material.OAK_FENCE),
                     null,
                     new ItemStack(Material.BRICKS),
-                    ItemStackFactory.create(Material.DISPENSER, "Dispenser (Facing Up)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     new ItemStack(Material.BRICKS),
                     null,
                     new ItemStack(Material.FLINT_AND_STEEL),

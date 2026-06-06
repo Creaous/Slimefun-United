@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -56,7 +56,7 @@ public class Compressor extends MultiBlockMachine {
                     new ItemStack(Material.NETHER_BRICK_FENCE),
                     null,
                     new ItemStack(Material.PISTON),
-                    ItemStackFactory.create(Material.DISPENSER, "Dispenser (Facing Up)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     new ItemStack(Material.PISTON)
                 },
                 BlockFace.SELF);

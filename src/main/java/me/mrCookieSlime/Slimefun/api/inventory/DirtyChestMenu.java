@@ -1,7 +1,7 @@
 package me.mrCookieSlime.Slimefun.api.inventory;
 
 import city.norain.slimefun4.utils.InventoryUtil;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.ComparisonResult;
@@ -224,7 +224,7 @@ public class DirtyChestMenu extends ChestMenu {
         }
 
         if (amount > 0) {
-            return ItemStackFactory.create(item, amount);
+            return new CustomItemStack(item, amount);
         } else {
             return null;
         }

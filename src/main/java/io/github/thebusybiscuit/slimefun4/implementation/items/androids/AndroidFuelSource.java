@@ -2,9 +2,9 @@ package io.github.thebusybiscuit.slimefun4.implementation.items.androids;
 
 import javax.annotation.Nonnull;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
 
 /**
@@ -43,6 +43,6 @@ public enum AndroidFuelSource {
      */
     @Nonnull
     public ItemStack getItem() {
-        return ItemStackFactory.create(HeadTexture.GENERATOR.getAsItemStack(), "&8\u21E9 &cFuel Input &8\u21E9", lore);
+        return new CustomItemStack(HeadTexture.GENERATOR.getAsItemStack(), "&8\u21E9 &cFuel Input &8\u21E9", lore);
     }
 }
