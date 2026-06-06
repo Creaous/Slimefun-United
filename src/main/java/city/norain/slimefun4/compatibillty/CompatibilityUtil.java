@@ -69,18 +69,4 @@ public class CompatibilityUtil {
             return player.isOnline();
         }
     }
-
-    /**
-     * Retrieves the attribute key for maximum health.
-     * Before Minecraft 1.21.3 the legacy constant {@code GENERIC_MAX_HEALTH} is used instead.
-     *
-     * @return the attribute representing maximum health
-     */
-    public static Attribute getMaxHealth() {
-        if (SlimefunExtended.getMinecraftVersion().isAtLeast(1, 21, 3)) {
-            return Registry.ATTRIBUTE.get(NamespacedKey.fromString("max_health"));
-        } else {
-            return Attribute.valueOf("GENERIC_MAX_HEALTH");
-        }
-    }
 }

@@ -7,6 +7,7 @@ import java.util.OptionalInt;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,7 +15,6 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.callback.IAsyncReadCallback;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
@@ -243,7 +243,7 @@ public class GEOMiner extends SlimefunItem
 
         for (GEOResource resource : Slimefun.getRegistry().getGEOResources().values()) {
             if (resource.isObtainableFromGEOMiner()) {
-                displayRecipes.add(ItemStackFactory.create(resource.getItem(), ChatColor.RESET + resource.getName()));
+                displayRecipes.add(new CustomItemStack(resource.getItem(), ChatColor.RESET + resource.getName()));
             }
         }
 
@@ -269,7 +269,7 @@ public class GEOMiner extends SlimefunItem
             preset.addItem(i, ChestMenuUtils.getOutputSlotTexture(), ChestMenuUtils.getEmptyClickHandler());
         }
 
-        preset.addItem(4, ItemStackFactory.create(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(4, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
 
         for (int i : OUTPUT_SLOTS) {
             preset.addMenuClickHandler(i, ChestMenuUtils.getDefaultOutputHandler());
@@ -307,7 +307,7 @@ public class GEOMiner extends SlimefunItem
                 removeCharge(b.getLocation(), getEnergyConsumption());
                 operation.addProgress(getSpeed());
             } else {
-                inv.replaceExistingItem(4, ItemStackFactory.create(Material.BLACK_STAINED_GLASS_PANE, " "));
+                inv.replaceExistingItem(4, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
                 inv.pushItem(operation.getResult(), OUTPUT_SLOTS);
 
                 processor.endOperation(b);

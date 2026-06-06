@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,7 +23,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.bakedlibs.dough.common.ChatColors;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
@@ -70,9 +70,9 @@ public class IndustrialMiner extends MultiBlockMachine {
                     null,
                     null,
                     null,
-                    ItemStackFactory.create(Material.PISTON, "Piston (Facing Up)"),
+                    new CustomItemStack(Material.PISTON, "Piston (Facing Up)"),
                     new ItemStack(Material.CHEST),
-                    ItemStackFactory.create(Material.PISTON, "Piston (Facing Up)"),
+                    new CustomItemStack(Material.PISTON, "Piston (Facing Up)"),
                     new ItemStack(baseMaterial),
                     new ItemStack(Material.BLAST_FURNACE),
                     new ItemStack(baseMaterial)

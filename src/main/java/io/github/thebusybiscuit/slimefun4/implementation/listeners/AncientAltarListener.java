@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,7 +28,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.bakedlibs.dough.protection.Interaction;
 
@@ -183,7 +183,7 @@ public class AncientAltarListener implements Listener {
             return;
         }
 
-        ItemStack catalyst = ItemStackFactory.create(p.getInventory().getItemInMainHand(), 1);
+        ItemStack catalyst = new CustomItemStack(p.getInventory().getItemInMainHand(), 1);
         List<Block> pedestals = getPedestals(altar);
 
         if (!altars.contains(altar)) {

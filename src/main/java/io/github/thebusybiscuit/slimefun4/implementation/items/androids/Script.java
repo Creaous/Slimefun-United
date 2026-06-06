@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.bakedlibs.dough.config.Config;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
 import io.github.thebusybiscuit.slimefun4.utils.NumberUtils;
@@ -145,7 +145,7 @@ public final class Script {
             lore.add("&eShift + Right Click &fto leave a negative Rating");
         }
 
-        return ItemStackFactory.create(android.getItem(), "&b" + getName(), lore.toArray(new String[0]));
+        return new CustomItemStack(android.getItem(), "&b" + getName(), lore.toArray(new String[0]));
     }
 
     @Nonnull

@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Keyed;
@@ -25,7 +26,6 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.bakedlibs.dough.common.ChatColors;
 import io.github.bakedlibs.dough.config.Config;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunBranch;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -321,7 +321,7 @@ public abstract class SlimefunLocalization implements Keyed {
         Language language = getLanguage(p);
         NamespacedKey key = recipeType.getKey();
 
-        return ItemStackFactory.create(item, meta -> {
+        return new CustomItemStack(item, meta -> {
             String displayName = getStringOrNull(language, LanguageFile.RECIPES, key.getNamespace() + "." + key.getKey() + ".name");
 
             // Set the display name if possible, else keep the default item name.

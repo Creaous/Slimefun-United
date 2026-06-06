@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,7 +27,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.api.events.TalismanActivateEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -40,7 +40,7 @@ import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 
 public class Talisman extends SlimefunItem {
 
-    protected static final ItemGroup TALISMANS_ITEMGROUP = new ItemGroup(new NamespacedKey(Slimefun.instance(), "talismans"), ItemStackFactory.create(SlimefunItems.COMMON_TALISMAN.item(), "&7Talismans - &aTier I"), 2);
+    protected static final ItemGroup TALISMANS_ITEMGROUP = new ItemGroup(new NamespacedKey(Slimefun.instance(), "talismans"), new CustomItemStack(SlimefunItems.COMMON_TALISMAN.item(), "&7Talismans - &aTier I"), 2);
     private static final String WIKI_PAGE = "Talismans";
 
     private final SlimefunItemStack enderTalisman;
@@ -94,7 +94,7 @@ public class Talisman extends SlimefunItem {
             @Nullable String messageSuffix,
             int chance,
             PotionEffect... effects) {
-        super(itemGroup, item, RecipeType.MAGIC_WORKBENCH, recipe, ItemStackFactory.create(item, consumable ? 4 : 1));
+        super(itemGroup, item, RecipeType.MAGIC_WORKBENCH, recipe, new CustomItemStack(item, consumable ? 4 : 1));
 
         this.consumable = consumable;
         this.cancel = cancelEvent;

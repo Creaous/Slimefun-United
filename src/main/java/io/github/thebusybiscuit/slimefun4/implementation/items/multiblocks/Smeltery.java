@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -17,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -59,7 +59,7 @@ public class Smeltery extends AbstractSmeltery {
                     new ItemStack(Material.NETHER_BRICK_FENCE),
                     null,
                     new ItemStack(Material.NETHER_BRICKS),
-                    ItemStackFactory.create(Material.DISPENSER, "Dispenser (Facing Up)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (Facing Up)"),
                     new ItemStack(Material.NETHER_BRICKS),
                     null,
                     new ItemStack(Material.FLINT_AND_STEEL),

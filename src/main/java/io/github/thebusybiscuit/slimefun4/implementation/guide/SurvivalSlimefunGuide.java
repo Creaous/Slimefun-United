@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,7 +25,6 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 
 import io.github.bakedlibs.dough.chat.ChatInput;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.bakedlibs.dough.recipes.MinecraftRecipe;
 
@@ -221,7 +221,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
 
             menu.addItem(
                     index,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             Material.BARRIER,
                             "&4"
                                     + Slimefun.getLocalization().getMessage(p, "guide.locked")
@@ -314,7 +314,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             List<String> message = Slimefun.getPermissionsService().getLore(sfitem);
             menu.addItem(
                     index,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             ChestMenuUtils.getNoPermissionItem(),
                             sfitem.getItemName(),
                             message.toArray(new String[0])));
@@ -334,7 +334,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
 
             menu.addItem(
                     index,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             ChestMenuUtils.getNoPermissionItem(),
                             "&f" + ItemUtils.getItemName(sfitem.getItem()),
                             "&7" + sfitem.getId(),
@@ -414,7 +414,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             if (!slimefunItem.isHidden()
                     && isItemGroupAccessible(p, slimefunItem)
                     && isSearchFilterApplicable(slimefunItem, searchTerm)) {
-                ItemStack itemstack = ItemStackFactory.create(slimefunItem.getItem(), meta -> {
+                ItemStack itemstack = new CustomItemStack(slimefunItem.getItem(), meta -> {
                     ItemGroup itemGroup = slimefunItem.getItemGroup();
                     meta.setLore(Arrays.asList(
                             "", ChatColor.DARK_GRAY + "\u21E8 " + ChatColor.WHITE + itemGroup.getDisplayName(p)));
@@ -509,7 +509,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
                 null,
                 null,
                 null,
-                ItemStackFactory.create(Material.BARRIER, "&4We are somehow unable to show you this Recipe :/"),
+                new CustomItemStack(Material.BARRIER, "&4We are somehow unable to show you this Recipe :/"),
                 null,
                 null,
                 null,
@@ -589,7 +589,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
         if (wiki.isPresent()) {
             menu.addItem(
                     8,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             Material.KNOWLEDGE_BOOK,
                             ChatColor.WHITE + Slimefun.getLocalization().getMessage(p, "guide.tooltips.wiki"),
                             "",
@@ -748,7 +748,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
                     : "&fNo Permission";
             return slimefunItem.canUse(p, false)
                     ? item
-                    : ItemStackFactory.create(
+                    : new CustomItemStack(
                             Material.BARRIER,
                             ItemUtils.getItemName(item),
                             "&4&l" + Slimefun.getLocalization().getMessage(p, "guide.locked"),
@@ -768,7 +768,7 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
 
             if (page == 0) {
                 for (int i = 27; i < 36; i++) {
-                    menu.replaceExistingItem(i, ItemStackFactory.create(ChestMenuUtils.getBackground(), sfItem.getRecipeSectionLabel(p)));
+                    menu.replaceExistingItem(i, new CustomItemStack(ChestMenuUtils.getBackground(), sfItem.getRecipeSectionLabel(p)));
                     menu.addMenuClickHandler(i, ChestMenuUtils.getEmptyClickHandler());
                 }
             }

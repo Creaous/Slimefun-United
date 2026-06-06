@@ -103,14 +103,13 @@ public enum MinecraftVersion {
     MinecraftVersion(int majorVersion, int minorVersion, @Nonnull String name) {
         this.name = name;
         this.majorVersion = majorVersion;
-        this.minorVersion = -1;
         this.maxMinorVersion = -1;
         this.minorVersion = minorVersion;
         this.patchVersion = -1;
         this.virtual = false;
     }
 
-    /**
+        /**
      * This constructs a new {@link MinecraftVersion} with the given name.
      * This constructor forces the {@link MinecraftVersion} to be real.
      * It must be a real version of Minecraft.

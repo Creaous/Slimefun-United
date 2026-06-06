@@ -37,7 +37,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import io.github.bakedlibs.dough.common.CommonPatterns;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -166,7 +165,7 @@ public class VanillaAutoCrafter extends AbstractAutoCrafter {
 
         AbstractRecipe recipe = AbstractRecipe.of(recipes.get(index));
 
-        menu.replaceExistingItem(49, ItemStackFactory.create(Material.CRAFTING_TABLE, ChatColor.GREEN + Slimefun.getLocalization().getMessage(p, "messages.auto-crafting.select")));
+        menu.replaceExistingItem(49, new CustomItemStack(Material.CRAFTING_TABLE, ChatColor.GREEN + Slimefun.getLocalization().getMessage(p, "messages.auto-crafting.select")));
         menu.addMenuClickHandler(49, (pl, slot, item, action) -> {
             setSelectedRecipe(b, recipe);
             pl.closeInventory();

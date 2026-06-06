@@ -5,7 +5,7 @@ import com.xzavier0722.mc.plugin.slimefun4.autocrafter.CrafterInteractable;
 import com.xzavier0722.mc.plugin.slimefun4.autocrafter.CrafterInteractorManager;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import io.github.bakedlibs.dough.data.persistent.PersistentDataAPI;
-import io.github.bakedlibs.dough.items.ItemStackFactory;
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -410,7 +410,7 @@ public abstract class AbstractAutoCrafter extends SlimefunItem implements Energy
         if (recipe.isEnabled()) {
             menu.addItem(
                     49,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             Material.BARRIER,
                             Slimefun.getLocalization().getMessages(p, "messages.auto-crafting.tooltips.enabled")));
             menu.addMenuClickHandler(49, (pl, item, slot, action) -> {
@@ -425,7 +425,7 @@ public abstract class AbstractAutoCrafter extends SlimefunItem implements Energy
         } else {
             menu.addItem(
                     49,
-                    ItemStackFactory.create(
+                    new CustomItemStack(
                             HeadTexture.EXCLAMATION_MARK.getAsItemStack(),
                             Slimefun.getLocalization().getMessages(p, "messages.auto-crafting.tooltips.disabled")));
             menu.addMenuClickHandler(49, (pl, item, slot, action) -> {

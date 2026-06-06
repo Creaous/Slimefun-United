@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.xzavier0722.mc.plugin.slimefun4.autocrafter.CrafterSmartPort;
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,7 +19,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -398,7 +398,7 @@ public final class SlimefunItemSetup {
                 .register(plugin);
 
         new BasicCircuitBoard(itemGroups.technicalComponents, SlimefunItems.BASIC_CIRCUIT_BOARD, RecipeType.MOB_DROP,
-                new ItemStack[] {null, null, null, null, ItemStackFactory.create(SlimefunUtils.getCustomHead(HeadTexture.IRON_GOLEM.getTexture()), "&aIron Golem"), null, null, null, null})
+                new ItemStack[] {null, null, null, null, new CustomItemStack(SlimefunUtils.getCustomHead(HeadTexture.IRON_GOLEM.getTexture()), "&aIron Golem"), null, null, null, null})
                 .register(plugin);
 
         new UnplaceableBlock(itemGroups.technicalComponents, SlimefunItems.ADVANCED_CIRCUIT_BOARD, RecipeType.ENHANCED_CRAFTING_TABLE,
@@ -2671,7 +2671,7 @@ public final class SlimefunItemSetup {
                 .register(plugin);
 
         new StrangeNetherGoo(itemGroups.magicalResources, SlimefunItems.STRANGE_NETHER_GOO, RecipeType.BARTER_DROP,
-                new ItemStack[] {null, null, null, null, ItemStackFactory.create(HeadTexture.PIGLIN_HEAD.getAsItemStack(), "&fPiglin"), null, null, null, null})
+                new ItemStack[] {null, null, null, null, new CustomItemStack(HeadTexture.PIGLIN_HEAD.getAsItemStack(), "&fPiglin"), null, null, null, null})
                 .register(plugin);
 
         if (minecraftVersion.isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {

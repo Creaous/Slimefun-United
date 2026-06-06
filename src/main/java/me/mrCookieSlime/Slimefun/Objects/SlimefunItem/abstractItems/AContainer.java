@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import io.github.bakedlibs.dough.items.CustomItemStack;
 import org.apache.commons.lang.Validate;
 
 import org.bukkit.Location;
@@ -19,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 
-import io.github.bakedlibs.dough.items.ItemStackFactory;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
@@ -132,7 +133,7 @@ public abstract class AContainer extends SlimefunItem
         }
 
         preset.addItem(
-                22, ItemStackFactory.create(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+                22, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
 
         for (int i : getOutputSlots()) {
             preset.addMenuClickHandler(i, ChestMenuUtils.getDefaultOutputHandler());
@@ -385,7 +386,7 @@ public abstract class AContainer extends SlimefunItem
                     processor.updateProgressBar(inv, 22, currentOperation);
                     currentOperation.addProgress(1);
                 } else {
-                    inv.replaceExistingItem(22, ItemStackFactory.create(Material.BLACK_STAINED_GLASS_PANE, " "));
+                    inv.replaceExistingItem(22, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
 
                     for (ItemStack output : currentOperation.getResults()) {
                         inv.pushItem(output.clone(), getOutputSlots());

@@ -412,9 +412,9 @@ final class CargoUtils {
                 }
 
                 int maxStackSize = Math.min(
-                        Slimefun.getItemStackService()
-                                .getMaxStackSize(stack, InventoryContext.CARGO_INSERT, stack.getMaxStackSize()),
-                        inv.getMaxStackSize());
+                    Slimefun.getItemStackService()
+                        .getMaxStackSize(stack, InventoryContext.CARGO_INSERT, stack.getMaxStackSize()),
+                    inv.getMaxStackSize());
                 if (stack.getAmount() > maxStackSize) {
                     ItemStack inserted = stack.clone();
                     inserted.setAmount(maxStackSize);
@@ -434,12 +434,12 @@ final class CargoUtils {
             if (SlimefunUtils.isItemSimilar(itemInSlot, wrapper, true, false)) {
                 int currentAmount = itemInSlot.getAmount();
                 int maxStackSize = Math.min(
-                        Slimefun.getItemStackService()
-                                .getMaxStackSize(
-                                        itemInSlot,
-                                        InventoryContext.CARGO_INSERT,
-                                        itemInSlot.getType().getMaxStackSize()),
-                        inv.getMaxStackSize());
+                    Slimefun.getItemStackService()
+                        .getMaxStackSize(
+                            itemInSlot,
+                            InventoryContext.CARGO_INSERT,
+                            itemInSlot.getType().getMaxStackSize()),
+                    inv.getMaxStackSize());
 
                 if (!smartFill && currentAmount == maxStackSize) {
                     // Skip full stacks - Performance optimization for non-smartfill nodes
@@ -447,32 +447,34 @@ final class CargoUtils {
                 }
 
                 ComparisonResult comparison =
-                        Slimefun.getItemStackService().matches(itemInSlot, stack, MatchContext.STACK_MERGE);
+                    Slimefun.getItemStackService().matches(itemInSlot, stack, MatchContext.STACK_MERGE);
                 if (comparison == ComparisonResult.NO_MATCH) {
                     continue;
                 }
 
                 if ((comparison == ComparisonResult.MATCH)
-                        || SlimefunUtils.isItemSimilarWithoutVirtualItems(itemInSlot, wrapper, true, false)) {
+                    || SlimefunUtils.isItemSimilarWithoutVirtualItems(itemInSlot, wrapper, true, false)) {
                     if (currentAmount < maxStackSize) {
                         int amount = currentAmount + stack.getAmount();
 
-                    if (amount > maxStackSize) {
-                        stack.setAmount(amount - maxStackSize);
-                        itemInSlot.setAmount(maxStackSize);
+                        if (amount > maxStackSize) {
+                            stack.setAmount(amount - maxStackSize);
+                            itemInSlot.setAmount(maxStackSize);
+                            return stack;
+                        } else {
+                            itemInSlot.setAmount(amount);
+                            return null;
+                        }
+                    } else if (smartFill) {
                         return stack;
-                    } else {
-                        itemInSlot.setAmount(amount);
-                        return null;
                     }
-                } else if (smartFill) {
-                    return stack;
                 }
             }
         }
 
-        return stack;
-    }
+            return stack;
+        }
+
 
     @Nullable
     static DirtyChestMenu getChestMenu(@Nonnull Block block) {
